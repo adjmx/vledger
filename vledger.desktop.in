@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=vledger
+GenericName=Crypto Ledger Analysis
+Comment=Visual analysis of the UK crypto CGT reconstruction (ndisc suite)
+Exec=@BINDIR@/vledger
+Icon=@ICONDIR@/vledger.svg
+Terminal=false
+Categories=Office;Finance;Utility;
+Keywords=crypto;bitcoin;cgt;capital-gains;tax;s104;charts;analysis;accounting;ndisc;
+StartupNotify=true

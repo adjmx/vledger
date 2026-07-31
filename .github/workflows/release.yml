@@ -1,0 +1,74 @@
+name: Release
+
+# Cut a release by pushing a tag, e.g.  git tag v0.1.1-beta.1 && git push origin v0.1.1-beta.1
+# Builds natively per-OS and attaches the artifacts to a GitHub Release:
+#   • macOS (Apple Silicon)  → .dmg
+#   • Linux (Ubuntu 22.04)   → .deb
+# Both are UNSIGNED — convenience installers, not store-published. A tag with a
+# pre-release suffix (a hyphen, e.g. -beta.1) is published as a GitHub prerelease.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-14 # Apple Silicon runner → arm64 .dmg
+            args: "--bundles dmg"
+          - platform: ubuntu-22.04 # broad glibc compat for the .deb
+            args: "--bundles deb"
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Tauri v2 Linux dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            build-essential \
+            curl wget file \
+            libgtk-3-dev \
+            libxdo-dev \
+            libssl-dev
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Rust toolchain is driven by rust-toolchain.toml (pins 1.92); rustup on
+      # the runner auto-installs it on first cargo invocation.
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build + release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: ${{ github.ref_name }}
+          releaseBody: |
+            Automated build — unsigned convenience installers.
+            • macOS (Apple Silicon): `.dmg`
+            • Linux: `.deb`
+          # Pre-release when the tag has a semver pre-release suffix (a hyphen).
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          args: ${{ matrix.args }}

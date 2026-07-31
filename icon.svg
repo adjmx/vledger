@@ -1,0 +1,18 @@
+<svg width="880" height="880" viewBox="0 0 880 880" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_3423_26" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="880" height="880">
+<rect width="880" height="880" fill="#FF0000"/>
+</mask>
+<g mask="url(#mask0_3423_26)">
+<rect width="880" height="880" fill="#C6FFF7"/>
+<rect x="5" y="5" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="5" y="102.778" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="5" y="200.556" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="5" y="298.333" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="5" y="396.111" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="5" y="493.889" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="5" y="591.667" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="5" y="689.444" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="5" y="787.222" width="870" height="87.7778" stroke="black" stroke-width="10"/>
+<rect x="10" y="10" width="860" height="860" stroke="black" stroke-width="20"/>
+</g>
+</svg>

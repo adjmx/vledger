@@ -1,0 +1,23 @@
+[package]
+name = "vledger"
+version = "0.1.0"
+description = "Visual analysis of the UK crypto CGT reconstruction (reads accounting.master)"
+authors = ["xjmzx"]
+edition = "2021"
+
+[lib]
+# `_lib` suffix keeps the lib name distinct from the bin on Windows
+# (rust-lang/cargo#8519). Matches the suite (nledger/xledger).
+name = "vledger_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# No rusqlite: vledger is read-only over the reconstruction FILES, not a store.
