@@ -10,6 +10,8 @@ exposure, gain by asset, the **S104 pool** visualised, and every transaction
 classified (including where **nledger**'s on-chain/Lightning spends resolve the
 open "spend vs. transfer" decisions).
 
+> **How data is read + parsed:** see [INGESTION.md](INGESTION.md).
+
 ## Data
 
 Point it at the **`reconstruction`** folder (inside
